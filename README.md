@@ -1,1 +1,1 @@
-# life-sg-web-builder
+# LifeSG Web UI Generator
