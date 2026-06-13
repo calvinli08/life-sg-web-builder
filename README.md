@@ -14,34 +14,33 @@ This is a functional prototype of an AI-powered website builder that generates l
 - **LLM Orchestration**: LangChain & LangGraph (using Gemini API)
 - **Backend**: Node.js
 
-## 🏗️ Architecture
+## 🏗️ Basic Workflow Architecture
 
 ```mermaid
 graph TD
-    A[User Input] --> B[Next.js Frontend]
+    A[Next.js Frontend] --> B[User Input]
     B --> C[LangGraph Agent]
-    C --> D{Planner Node}
-    D --> E[Code Generator Node]
-    E --> F[LifeSG Component Mapper]
-    F --> G[JSON/Code Response]
-    G --> B
-    B --> H[Preview Tab]
-    B --> I[Code Tab]
+    C --> D[Code Generator Node]
+    D --> E[JSON/Code Response]
+    E --> F[LifeSG Component Renderer]
+    F --> H[Preview Tab]
+    F --> I[Code Tab]
 ```
 
 ## 📦 LifeSG Components Used
 | Component | Usage |
 | :--- | :--- |
 | `Button` | Primary actions and generation triggers. |
-| `Form.Input` | User prompt input area. |
+| `Input` | User prompt input area. |
 | `Layout.Content` | Main container for generated content. |
 | `Card` | Used for displaying section blocks in the generated UI. |
 | `Tabs` | Navigation between 'Preview' and 'Code' views. |
+| `Typography` | Render `Body` and `Heading` element components. |
 
-## 🏃 How to Run
-1. **Clone the repo**: `git clone <repo-url>`
+## 🏃 How to test locally
+1. **Clone the repo**: `git clone git@github.com:calvinli08/life-sg-web-builder.git`
 2. **Install dependencies**: `npm install`
-3. **Set Environment Variables**: Create a `.env` file with your `GOOGLE_API_KEY`.
+3. **Set Environment Variables**: Create a `.env` file with your `GEMINI_API_KEY` and set your preferred model in `GEMINI_MODEL_NAME`.
 4. **Start the development server**: `npm run dev`
 5. **Access the app**: Navigate to `http://localhost:3000`
 
