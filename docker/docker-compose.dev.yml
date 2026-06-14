@@ -1,8 +1,8 @@
 services:
   dev-container:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: docker/Dockerfile.dev
     container_name: ui-builder
     
     # Maps Next.js port 3000 from host to container
@@ -10,7 +10,7 @@ services:
       - "3000:3000"
 
     volumes:
-      - .:/app
+      - ../:/app
     working_dir: /app
     tty: true
     stdin_open: true
