@@ -36,7 +36,7 @@ export const PromptSection: React.FC<PromptSectionProps> = ({ onGenerate, isLoad
       </div>
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "1rem" }}>
         {isLoading && (
-          <div>🤖 Querying Agent Graph Logic Models...</div>
+          <div>🤖 Generating UI...</div>
         )}
         <Button.Default type="submit" disabled={isLoading || !promptText.trim()}>
           {isLoading ? "Generating UI..." : "Generate UI"}
