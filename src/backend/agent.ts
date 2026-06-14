@@ -12,8 +12,8 @@ const AgentState = Annotation.Root({
 const generateLayoutNode = async (state: typeof AgentState.State) => {
   try {
     const model = new ChatGoogle({
-      apiKey: process.env.GEMINI_API_KEY,
-      model: process.env.GEMINI_MODEL_NAME,
+      apiKey: process.env.GEMINI_API_KEY || '',
+      model: process.env.GEMINI_MODEL_NAME || '',
       // Concurrency and retry logic to handle provider-side rate limits
       maxRetries: 2,
       // Limits global concurrent calls from this server instance
@@ -34,7 +34,7 @@ Allowed Component Tags & Core Props:
 - "Heading": [type: "h1" | "h2" | "h3" | "h4", children: string]
 - "Alert": [type: "success" | "warning" | "error" | "info", title: string, children: string]
 - "Input": [label: string, placeholder: string]
-- "DateInput": [label: string, placeholder: string]
+- "DateInput": [minDate: string, maxDate: string]
 - "Textarea": [label: string, placeholder: string]
 - "Accordion": [title: string, children: string]
 - "Select": [label: string, options: string[]]
