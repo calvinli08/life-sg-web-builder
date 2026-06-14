@@ -1,0 +1,12 @@
+services:
+  ui-builder:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    container_name: ui-builder
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    env_file:
+      - ../.env
