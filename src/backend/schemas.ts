@@ -4,7 +4,7 @@ import { z } from "zod";
 export interface ComponentNode {
   id: string;
   component: 
-    | "Button" | "Card" | "Heading" | "Alert" | "Textarea" | "Input"
+    | "Button" | "Card" | "Heading" | "Alert" | "Textarea" | "Input" | "Label"
     | "DateInput" | "Accordion" | "Select" | "Checkbox" | "RadioButton"
     | "SingpassButton" | "Toggle" | "NavBar" | "Pagination" | "Grid" | "Column";
   props: Record<string, any>;
@@ -16,7 +16,7 @@ export const ComponentSchema: z.ZodType<ComponentNode> = z.lazy(() =>
   z.object({
     id: z.string().describe("A unique identifier for the element instance"),
     component: z.enum([
-      "Button", "Card", "Heading", "Alert", "Textarea", "Input",
+      "Button", "Card", "Heading", "Alert", "Textarea", "Input", "Label",
       "DateInput", "Accordion", "Select", "Checkbox", "RadioButton",
       "SingpassButton", "Toggle", "NavBar", "Pagination", "Grid", "Column"
     ]).describe("The target LifeSG design system component mapping type"),

@@ -18,6 +18,7 @@ import { Pagination } from "@lifesg/react-design-system/pagination";
 import { Layout } from "@lifesg/react-design-system/layout";
 import { Typography } from "@lifesg/react-design-system/typography";
 import { SingpassButton } from "@lifesg/react-design-system/singpass-button";
+import { Form } from "@lifesg/react-design-system/form";
 
 import reactElementToJSXString from 'react-element-to-jsx-string';
 
@@ -90,6 +91,13 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
             data-testid={id}
             placeholder={props.placeholder || ""}
           />
+        );
+
+      case "Label":
+        return (
+          <Form.Label key={id} data-display-name="Label">
+            {evaluatedChildren}
+          </Form.Label>
         );
 
       case "Textarea":

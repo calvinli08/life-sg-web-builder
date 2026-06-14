@@ -34,6 +34,7 @@ Allowed Component Tags & Core Props:
 - "Heading": [type: "h1" | "h2" | "h3" | "h4", children: string]
 - "Alert": [type: "success" | "warning" | "error" | "info", title: string, children: string]
 - "Input": [label: string, placeholder: string]
+- "Label": [children: string]
 - "DateInput": [minDate: string, maxDate: string]
 - "Textarea": [label: string, placeholder: string]
 - "Accordion": [title: string, children: string]
@@ -48,6 +49,8 @@ Allowed Component Tags & Core Props:
 - "Column": [children: string]
 
 Include sensible padding between components.
+
+"Input" should always be paired with a "Label" component directly above it.
 
 Return structurally balanced user layouts. Use standard grid layouts where columns are cleanly encapsulated by grids. 
 Do not hallucinate component tags outside the explicit allowed list.
