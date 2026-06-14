@@ -60,7 +60,7 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
 
       case "Text":
         return (
-          <Typography.BodyMD key={id} displayName="Text" >
+          <Typography.BodyMD key={id} data-display-name="Text" >
             {evaluatedChildren}
           </Typography.BodyMD>
         );
@@ -68,7 +68,7 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
       case "Heading":
         // Maps down to appropriate internal structural heading tags wrapper abstractions
         return (
-          <Typography.HeadingMD key={id} displayName="Heading" style={{ marginBottom: "1rem" }} >
+          <Typography.HeadingMD key={id} data-display-name="Heading" style={{ marginBottom: "1rem" }} >
             {evaluatedChildren}
           </Typography.HeadingMD>
         );
@@ -85,11 +85,10 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
         return (
           <Input 
             key={id} 
-            displayName="Input"
+            data-display-name="Input"
             style={{ marginBottom: "1.25rem", width: "100%" }}
             data-testid={id}
             placeholder={props.placeholder || ""}
-            label={props.label}
           />
         );
 
@@ -97,7 +96,7 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
         return (
           <Textarea 
             key={id} 
-            displayName="Textarea"
+            data-display-name="Textarea"
             style={{ marginBottom: "1.25rem", width: "100%" }}
             data-testid={id}
             placeholder={props.placeholder || ""}
@@ -108,11 +107,8 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
         return (
           <DateInput
             key={id} 
-            displayName="DateInput"
-            style={{ marginBottom: "1.25rem", width: "100%" }} 
+            data-display-name="DateInput"
             data-testid={id}
-            label={props.label}
-            placeholder={props.placeholder}
           />
         );
 
@@ -129,10 +125,9 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
         return (
           <InputSelect
             key={id} 
-            displayName="Select"
+            data-display-name="Select"
             style={{ marginBottom: "1.25rem", width: "100%" }}
             data-testid={id}
-            label={selectLabel}
             options={selectOptions?.map((opt: string) => ({ label: opt, value: opt })) || []}
           />
         );
@@ -140,26 +135,26 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
       case "Checkbox":
         const { label: cbLabel, checked: cbChecked } = props;
         return (
-          <Checkbox key={id} displayLabel={cbLabel} checked={cbChecked}  />
+          <Checkbox key={id} checked={cbChecked} data-display-name="Checkbox" />
         );
 
       case "RadioButton":
         const { label: rbLabel, checked: rbChecked } = props;
         return (
-          <RadioButton key={id} displayLabel={rbLabel} checked={rbChecked}  />
+          <RadioButton key={id} data-display-name="RadioButton" />
         );
 
       case "SingpassButton":
         const { action } = props;
         return (
-          <SingpassButton.Default key={id} >
+          <SingpassButton.Default key={id} data-display-name="SingpassButton">
             {action || "Login with Singpass"}
           </SingpassButton.Default>
         );
 
       case "Toggle":
         const { label, enabled } = props;
-        return <Toggle key={id} indicator={enabled} displayName="Toggle">{label}</Toggle>
+        return <Toggle key={id} indicator={enabled} data-display-name="Toggle">{label}</Toggle>
 
       case "NavBar":
         const { items } = props;
@@ -173,19 +168,20 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
             pageSize={pageSize}
             totalItems={totalItems}
             activePage={activePage}
+            data-display-name="Pagination"
           />
         );
 
       case "Grid":
         return (
-          <Layout.Container type="grid" key={id}>
+          <Layout.Container type="grid" key={id} data-display-name="Grid">
             {Array.isArray(evaluatedChildren) ? evaluatedChildren : null}
           </Layout.Container>
         );
 
       case "Column":
         return (
-          <Layout.Container type="flex-column" key={id}>
+          <Layout.Container type="flex-column" key={id} data-display-name="Column">
             {Array.isArray(evaluatedChildren) ? evaluatedChildren : null}
           </Layout.Container>
         );
@@ -201,5 +197,5 @@ export function renderNodes(layout: ComponentNode[], rawCode: boolean = false): 
 
   const jsxTree: React.JSX.Element = <div className="rendered-canvas-root">{layout.map((node: ComponentNode) => renderNode(node))}</div>;
 
-  return rawCode ? reactElementToJSXString(jsxTree, {displayName: (element) => element?.props?.displayName || "Component"}) : jsxTree;
+  return rawCode ? reactElementToJSXString(jsxTree, {displayName: (element: any) => element?.props["data-display-name"] || "Component"}) : jsxTree;
 };
