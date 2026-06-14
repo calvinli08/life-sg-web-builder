@@ -6,13 +6,13 @@ An AI-powered website builder that generates functional prototypes using **Singa
 
 ```mermaid
 graph TD
-    Frontend[Homepage] --> User Prompt
-    User Prompt --> API[API Route /api/generate]
+    Homepage --> Prompt[User Prompt]
+    Prompt --> API[API Route /api/generate]
     API --> Agent[LangGraph Execution Agent]
     Agent --> LLM[Gemini Model]
     LLM --> Schema[Output Validation with Zod]
-    Schema --> Frontend
-    Frontend --> Renderer[renderNodes.tsx]
+    Schema --> Homepage
+    Homepage --> Renderer[renderNodes.tsx]
     Renderer --> Preview[Live UI Preview]
     Renderer --> Code[JSX Code Viewer]
 ```
