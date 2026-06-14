@@ -47,7 +47,7 @@ Production Deployment Commands:
 
 ```bash
 make build # Build the production-optimized standalone Docker image
-make up    # Start the application service (accessible at port 3000)
+make up    # Build and start the application service (accessible at port 3000)
 make logs  # Monitor real-time output from the container
 make down  # Stop and remove the application container
 ```

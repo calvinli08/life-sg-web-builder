@@ -9,7 +9,7 @@ build:
 
 # Start the application in detached mode
 up:
-	docker compose -f $(COMPOSE_FILE) up -d
+	docker compose -f $(COMPOSE_FILE) up --build -d
 
 # Stop and remove containers
 down:
