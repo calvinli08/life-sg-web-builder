@@ -4,54 +4,13 @@ import React, { useState } from "react";
 import { Tab } from "@lifesg/react-design-system/tab";
 import { Card } from "@lifesg/react-design-system/card";
 import { renderNodes } from "@/src/utils/renderNodes";
-import { GeneratedLayout } from "@/backend/schemas";
+import { GeneratedLayout } from "@/src/backend/schemas";
+import { Prism } from "react-syntax-highlighter";
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface ResultsDisplayProps {
   data: GeneratedLayout | null;
 }
-
-const convertToJSX = (nodes: any[]): string => {
-  const getComponentName = (type: string) => {
-    const map: Record<string, string> = {
-      Button: "Button.Default",
-      Card: "Card",
-      Heading: "Typography.HeadingMD",
-      Text: "Typography.BodyMD",
-      Alert: "Alert",
-      Input: "Input",
-      Textarea: "Textarea",
-      LayoutGrid: "Layout.Container",
-      LayoutColumn: "Layout.ColDiv",
-    };
-    return map[type] || type;
-  };
-
-  const renderNode = (node: any, depth = 0): string => {
-    const indent = "  ".repeat(depth);
-    const name = getComponentName(node.component);
-    
-    const propsArray = [`key="${node.id}"`];
-    Object.entries(node.props).forEach(([k, v]) => {
-      if (k === "children") return;
-      propsArray.push(typeof v === "string" ? `${k}="${v}"` : `${k}={${JSON.stringify(v)}}`);
-    });
-
-    const propsStr = propsArray.join(" ");
-    const hasChildren = (node.children && node.children.length > 0) || node.props.children;
-
-    if (!hasChildren) {
-      return `${indent}<${name} ${propsStr} />`;
-    }
-
-    const childrenJSX = node.children && node.children.length > 0
-      ? "\n" + node.children.map((c: any) => renderNode(c, depth + 1)).join("\n") + `\n${indent}`
-      : node.props.children;
-
-    return `${indent}<${name} ${propsStr}>${childrenJSX}</${name}>`;
-  };
-
-  return nodes.map((n) => renderNode(n)).join("\n");
-};
 
 export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ data }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -82,7 +41,14 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ data }) => {
           </Tab.Item>
           <Tab.Item title="Code">
             <Card>
-              {renderNodes(data.layout, true)}
+              <Prism
+                language="tsx"
+                style={oneLight}
+                customStyle={{ borderRadius: "6px", padding: "1rem" }}
+                showLineNumbers
+              >
+                {String(renderNodes(data.layout, true))}
+              </Prism>
             </Card>
           </Tab.Item>
         </Tab>
