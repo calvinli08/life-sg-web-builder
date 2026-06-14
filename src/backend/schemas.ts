@@ -9,8 +9,17 @@ export const ComponentSchema = z.object({
     "Alert", 
     "Textarea", 
     "Input",
-    "LayoutGrid",
-    "LayoutColumn"
+    "DateInput",
+    "Accordion",
+    "Select",
+    "Checkbox",
+    "RadioButton",
+    "SingpassButton",
+    "Toggle",
+    "NavBar",
+    "Pagination",
+    "Grid",
+    "Column"
   ]).describe("The target LifeSG design system component mapping type"),
   props: z.record(z.any()).describe("A flat mapping of permitted props matching LifeSG API specs"),
   children: z.lazy(() => z.array(ComponentSchema).optional()).describe("Nested child elements for structural container wrappers")

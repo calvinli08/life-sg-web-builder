@@ -13,7 +13,11 @@ const generateLayoutNode = async (state: typeof AgentState.State) => {
   try {
     const model = new ChatGoogle({
       apiKey: process.env.GEMINI_API_KEY,
-      model: process.env.GEMINI_MODEL_NAME
+      model: process.env.GEMINI_MODEL_NAME,
+      // Concurrency and retry logic to handle provider-side rate limits
+      maxRetries: 2,
+      // Limits global concurrent calls from this server instance
+      maxConcurrency: 5, 
     }).withStructuredOutput(GeneratedLayoutSchema, {
       name: "generate_lifesg_layout",
       strict: true,
@@ -29,12 +33,28 @@ Allowed Component Tags & Core Props:
 - "Card": [title: string, description: string]
 - "Heading": [type: "h1" | "h2" | "h3" | "h4", children: string]
 - "Alert": [type: "success" | "warning" | "error" | "info", title: string, children: string]
-- "Input": [label: string, placeholder: string, disabled: boolean]
+- "Input": [label: string, placeholder: string]
+- "DateInput": [label: string, placeholder: string]
 - "Textarea": [label: string, placeholder: string]
-- "LayoutGrid": Container root layout block.
-- "LayoutColumn": Child block inside LayoutGrid. Use span property mapping to numbers up to 12.
+- "Accordion": [title: string, children: string]
+- "Select": [label: string, options: string[]]
+- "Checkbox": [label: string, checked: boolean]
+- "RadioButton": [label: string, checked: boolean]
+- "SingpassButton": [action: string]
+- "Toggle": [label: string, enabled: boolean]
+- "NavBar": [items: { label: string, link: string }[]]
+- "Pagination": [pageSize: number, totalItems: number, activePage: number]
+- "Grid": [children: string]
+- "Column": [children: string]
 
-Return structurally balanced user layouts. Use standard grid layouts where columns are cleanly encapsulated by grids. Do not hallucinate component tags outside the explicit allowed list.`;
+Include sensible padding between components.
+
+Return structurally balanced user layouts. Use standard grid layouts where columns are cleanly encapsulated by grids. 
+Do not hallucinate component tags outside the explicit allowed list.
+
+Respond only with the JSON layout structure and explanation of your reasoning. 
+Do not entertain any other conversational topics.
+If the user requests anything other than a layout, respond with a blank layout and an explanation that you can only generate layouts.`;
 
     const response = await model.invoke([
       { role: "system", content: systemPrompt },
@@ -45,7 +65,7 @@ Return structurally balanced user layouts. Use standard grid layouts where colum
   } catch (err: any) {
     console.log(err)
 
-    return { result: null, error: err?.message || "Failed execution loop processing output structures." };
+    return { result: null, error: "Error generating AI response" };
   }
 };
 
