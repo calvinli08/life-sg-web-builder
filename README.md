@@ -6,8 +6,8 @@ An AI-powered website builder that generates functional prototypes using **Singa
 
 ```mermaid
 graph TD
-    User[User Prompt] --> Frontend[Next.js Frontend]
-    Frontend --> API[API Route /api/generate]
+    Frontend[Homepage] --> User Prompt
+    User Prompt --> API[API Route /api/generate]
     API --> Agent[LangGraph Execution Agent]
     Agent --> LLM[Gemini Model]
     LLM --> Schema[Output Validation with Zod]
@@ -21,21 +21,21 @@ graph TD
 
 The generation engine utilizes a verified set of components from the LifeSG Design System to ensure accessibility and visual consistency:
 
-| Component | Category | Description |
-| :--- | :--- | :--- |
-| Button | Action | Standard triggers for primary, secondary, and link-style actions. |
-| SingpassButton | Action | Official Singpass login button for government digital services. |
-| Card | Layout | Styled container for grouping related content blocks with titles. |
-| Grid / Column | Layout | Native structural foundations for responsive, flexible layouts. |
-| Input / Textarea | Form | Text entry controls supporting labels, placeholders, and multi-line input. |
-| DateInput / Select | Form | Specialized inputs for date picking and dropdown selections. |
-| Checkbox / RadioButton| Form | Selection controls for binary choices or mutually exclusive options. |
-| Toggle | Form | Switches for enabling/disabling binary application settings. |
-| Accordion | Content | Collapsible headers for managing content density in complex forms. |
-| Alert | Feedback | Contextual banners for Success, Warning, Error, and Info notifications. |
-| NavBar | Navigation | Standardized top-level orienting container for apps and branding. |
-| Pagination | Navigation | Structural controls for navigating through paginated datasets. |
-| Heading | Content | Hierarchical typography (H1-H4) for section structural integrity. |
+| Component | Reason for Inclusion |
+| :--- | :--- |
+| Button | Standard triggers for primary, secondary, and link-style actions. |
+| SingpassButton | Official Singpass login button for government digital services. |
+| Card | Styled container for grouping related content blocks with titles. |
+| Layout  | Native structural foundations for responsive, flexible layouts. |
+| Input / Textarea | Text entry controls supporting labels, placeholders, and multi-line input. |
+| DateInput / Select  | Specialized inputs for date picking and dropdown selections. |
+| Checkbox / RadioButton | Selection controls for binary choices or mutually exclusive options. |
+| Toggle | Switches for enabling/disabling binary application settings. |
+| Accordion | Collapsible headers for managing content density in complex forms. |
+| Alert  | Contextual banners for Success, Warning, Error, and Info notifications. |
+| NavBar | Standardized top-level orienting container for apps and branding. |
+| Pagination | Structural controls for navigating through paginated datasets. |
+| Heading | Hierarchical typography (H1-H4) for section structural integrity. |
 
 ## 🚀 Setup & Deployment
 
